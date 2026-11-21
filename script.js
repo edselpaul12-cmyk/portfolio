@@ -1,70 +1,33 @@
-// this part is the email that gets the messages from the contact form
+// this part is for the email that gets the messages from the contact form
 var myEmail = "edselpaul12@gmail.com";
 
-// this part is the words that will be typed under my name
-var words = ["BSIT student.", "online gaming seller.", "JavaScript learner."];
+// this part of javascript connects the footer year to the page
+document.getElementById("year").textContent = new Date().getFullYear();
 
-// this part puts the current year in the footer
-var year = new Date().getFullYear();
-document.getElementById("year").textContent = year;
-
-// this part is the typing effect
-var typed = document.getElementById("typed");
-var wordNumber = 0;     // which word we are on
-var letterNumber = 0;   // how many letters are showing
-var erasing = false;    // false = typing, true = erasing
-
-function typeWords() {
-  var word = words[wordNumber];
-
-  if (erasing == false) {
-    // add one more letter
-    letterNumber = letterNumber + 1;
-    typed.textContent = word.substring(0, letterNumber);
-
-    if (letterNumber == word.length) {
-      erasing = true;
-      setTimeout(typeWords, 1500); // wait before erasing
-    } else {
-      setTimeout(typeWords, 100);
-    }
-  } else {
-    // remove one letter
-    letterNumber = letterNumber - 1;
-    typed.textContent = word.substring(0, letterNumber);
-
-    if (letterNumber == 0) {
-      erasing = false;
-      wordNumber = wordNumber + 1;
-      if (wordNumber == words.length) {
-        wordNumber = 0; // go back to the first word
-      }
-    }
-    setTimeout(typeWords, 50);
-  }
-}
-typeWords();
-
-// this part is the Menu button for phones
+// this part of javascript connects the menu and the menu button for phones
 var menu = document.getElementById("menu");
 var menuBtn = document.getElementById("menuBtn");
 
+// this part is for showing or hiding the menu when the menu button is clicked
 menuBtn.onclick = function () {
-  menu.classList.toggle("open"); // show or hide the menu
+  menu.classList.toggle("open");
 };
 
-// this part closes the phone menu after clicking a link
+// this part of javascript connects all the menu links
 var menuLinks = document.querySelectorAll("nav a");
+
+// this part is for closing the phone menu after clicking a link
 for (var i = 0; i < menuLinks.length; i++) {
   menuLinks[i].onclick = function () {
     menu.classList.remove("open");
   };
 }
 
-// this part is the dark and light mode button
+// this part of javascript connects the dark and light mode button
 var themeBtn = document.getElementById("themeBtn");
 var root = document.documentElement;
 
+// this part is for switching between dark mode and light mode
 themeBtn.onclick = function () {
   if (root.getAttribute("data-theme") == "dark") {
     root.setAttribute("data-theme", "light");
@@ -73,25 +36,28 @@ themeBtn.onclick = function () {
   }
 };
 
-// this part is the contact form
+// this part of javascript connects the contact form
 var form = document.getElementById("contactForm");
 
+// this part is for sending the message when the visitor clicks send
 form.onsubmit = function (event) {
-  event.preventDefault(); // stops the page from reloading
+  // this part stops the page from reloading
+  event.preventDefault();
 
-  // get what the visitor typed
+  // this part gets what the visitor typed
   var name = document.getElementById("fName").value;
   var email = document.getElementById("fEmail").value;
   var message = document.getElementById("fMsg").value;
 
-  // make the subject and message for the email
+  // this part makes the subject and the message for the email
   var subject = "Portfolio message from " + name;
   var body = message + "\n\nFrom: " + name + " (" + email + ")";
 
-  // open the visitor's email app with everything filled in
+  // this part opens the visitor's email app with everything filled in
   window.location.href = "mailto:" + myEmail +
     "?subject=" + encodeURIComponent(subject) +
     "&body=" + encodeURIComponent(body);
 
+  // this part shows a small note under the form
   document.getElementById("formNote").textContent = "Opening your email app...";
 };
